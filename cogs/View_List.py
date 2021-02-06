@@ -13,7 +13,7 @@ class Viewing(commands.Cog):
         self.bot = bot
 
     bot = commands.Bot(command_prefix=get_prefix, description="I'm here to tell you what outfit to wear, ngl",
-                       case_insensitive=True)
+                       case_insensitive=True, help_command=None)
 
     @bot.command(name="list", description="Command to view a list of outfits")
     async def Viewing(self, ctx):
