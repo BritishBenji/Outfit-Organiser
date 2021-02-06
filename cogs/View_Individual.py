@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import json
 from main import get_prefix, bot
+import random
 
 
 class ViewIndividual(commands.Cog):
@@ -41,6 +42,21 @@ class ViewIndividual(commands.Cog):
             else:
                 await ctx.send(
                     f"That is not a listed Outfit! View your Outfits with `{bot.command_prefix(bot, ctx)[2]}list`")
+
+    @bot.command(name="random", description="View a random Outfit!", aliases=["r"])
+    async def Random(self, ctx):
+        outfits = {}
+
+        with open("Outfits.json", "r") as myfile:
+            outfits = json.load(myfile)
+
+        fit = random.choice(list(outfits.keys()))
+        embed = discord.Embed(title=f"Your Random Outfit! \n{fit}")
+        embed.set_image(url=outfits.get(fit))
+        embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text=ctx.guild,
+                         icon_url=ctx.guild.icon_url)
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
