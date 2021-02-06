@@ -13,7 +13,7 @@ class Removing(commands.Cog):
         self.bot = bot
 
     bot = commands.Bot(command_prefix=get_prefix, description="I'm here to tell you what outfit to wear, ngl",
-                       case_insensitive=True)
+                       case_insensitive=True, help_command=None)
 
     @bot.command(name="remove", description="Command to remove outfits", aliases=["del", "rem", "delete"])
     async def Removing(self, ctx, *fit):

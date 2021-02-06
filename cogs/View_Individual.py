@@ -7,14 +7,14 @@ import random
 
 class ViewIndividual(commands.Cog):
     """
-    This Cog allows you to view individual items
+    This Cog allows you to view individual items, either at random, or a specific outfit
     """
 
     def __init__(self, bot):
         self.bot = bot
 
     bot = commands.Bot(command_prefix=get_prefix, description="I'm here to tell you what outfit to wear, ngl",
-                       case_insensitive=True)
+                       case_insensitive=True, help_command=None)
 
     @bot.command(name="view", description="View your Outfit!")
     async def Individual(self, ctx, *fit):

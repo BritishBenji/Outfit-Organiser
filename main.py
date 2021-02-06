@@ -4,8 +4,6 @@
 
 # TODO: fix shit
 # TODO: Allow outfits to be categorized based on weather
-# TODO: Allow outfits to be picked at random
-# TODO: Create Cog for removing Outfits
 
 import os
 import discord
@@ -27,10 +25,8 @@ def get_prefix(client, message):
 
 # Set's out your prefix, and shortens the module name waaayyyyyy down. Pretty nifty, ngl
 bot = commands.Bot(command_prefix=get_prefix, description="I'm here to tell you what outfit to wear, ngl",
-                   case_insensitive=True)
+                   case_insensitive=True, help_command=None)
 
-# FIXME: Help Command
-# bot.remove_command('help')
 
 # collect token here
 file1 = open(f"{directory}\\token.txt", "r")
@@ -59,6 +55,5 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
         print(f'cogs.{filename}')
-
 
 bot.run(TOKEN, bot=True, reconnect=True)

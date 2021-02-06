@@ -5,7 +5,6 @@ from main import get_prefix, bot
 
 
 # TODO: Allow categorisation by weather or smthn
-# FIXME: The weird ass index thingy for the first entry. It's shit
 
 class Importing(commands.Cog):
     """
@@ -16,7 +15,7 @@ class Importing(commands.Cog):
         self.bot = bot
 
     bot = commands.Bot(command_prefix=get_prefix, description="I'm here to tell you what outfit to wear, ngl",
-                       case_insensitive=True)
+                       case_insensitive=True, help_command=None)
 
     @bot.command(name="input", description="Command to input outfits")
     async def Importing(self, ctx):
