@@ -36,7 +36,8 @@ class Viewing(commands.Cog):
         names = list(FullList.keys())
         name = "\n".join(names)
         embed = discord.Embed(title="Here are your outfits!", description=name)
-        embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        embed.set_author(name=ctx.message.author,
+                         icon_url=ctx.message.author.avatar_url)
         embed.set_footer(text=ctx.guild,
                          icon_url=ctx.guild.icon_url)
         await ctx.send(embed=embed)

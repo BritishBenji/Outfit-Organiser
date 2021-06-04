@@ -15,10 +15,12 @@ directory = os.getcwd()
 
 
 def get_prefix(client, message):
-    prefixes = ['!!']  # sets the prefixes, you can keep it as an array of only 1 item if you need only one prefix
+    # sets the prefixes, you can keep it as an array of only 1 item if you need only one prefix
+    prefixes = ['!!']
 
     if not message.guild:
-        prefixes = ['!']  # Only allow '!' as a prefix when in DMs, this is optional
+        # Only allow '!' as a prefix when in DMs, this is optional
+        prefixes = ['!']
 
     return commands.when_mentioned_or(*prefixes)(client, message)
 

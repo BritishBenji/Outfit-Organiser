@@ -21,13 +21,16 @@ class help(commands.Cog):
                                               'Must Be in Title Case, Just Like this Sentence.)')
             cogs_desc = ''
             for x in self.bot.cogs:
-                cogs_desc += ('{} - {}'.format(x, self.bot.cogs[x].__doc__) + '\n')
-            embed.add_field(name='Cogs', value=cogs_desc[0:len(cogs_desc) - 1], inline=False)
+                cogs_desc += ('{} - {}'.format(x,
+                              self.bot.cogs[x].__doc__) + '\n')
+            embed.add_field(
+                name='Cogs', value=cogs_desc[0:len(cogs_desc) - 1], inline=False)
             cmds_desc = ''
             for y in self.bot.walk_commands():
                 if not y.cog_name and not y.hidden:
                     cmds_desc += ('{} - {}'.format(y.name, y.help) + '\n')
-                    embed.add_field(name='Uncategorized Commands', value=cmds_desc[0:len(cmds_desc) - 1], inline=False)
+                    embed.add_field(name='Uncategorized Commands', value=cmds_desc[0:len(
+                        cmds_desc) - 1], inline=False)
             await ctx.message.add_reaction(emoji='✉')
             await ctx.message.author.send('', embed=embed)
         else:
@@ -44,7 +47,8 @@ class help(commands.Cog):
                                                   description=self.bot.cogs[cog[0]].__doc__)
                             for c in self.bot.get_cog(y).get_commands():
                                 if not c.hidden:
-                                    embed.add_field(name=c.name, value=c.help, inline=False)
+                                    embed.add_field(
+                                        name=c.name, value=c.help, inline=False)
                             found = True
                 if not found:
                     embed = discord.Embed(title='Error!', description='How do you even use "' + cog[0] + '"?',

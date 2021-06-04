@@ -29,7 +29,8 @@ class Cold(commands.Cog):
         # Embed for Outfit Name
         embed = discord.Embed(title="Add My Outfit!",
                               description="Please input the name of the outfit below!")
-        embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        embed.set_author(name=ctx.message.author,
+                         icon_url=ctx.message.author.avatar_url)
         embed.set_footer(text=ctx.guild,
                          icon_url=ctx.guild.icon_url)
         await ctx.send(embed=embed)
@@ -50,7 +51,8 @@ class Cold(commands.Cog):
         # Confirm Outfit
         embed = discord.Embed(title="You're about to create your outfit!",
                               description=f"You have named this outfit \"{msg}\"!")
-        embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        embed.set_author(name=ctx.message.author,
+                         icon_url=ctx.message.author.avatar_url)
         embed.set_footer(text=ctx.guild,
                          icon_url=ctx.guild.icon_url)
         embed.set_image(url=msg2)
@@ -71,7 +73,8 @@ class Cold(commands.Cog):
                     json.dump(outfits, myfile)
                 embed = discord.Embed(title="Outfit Saved!",
                                       description=f"To view your outfits, use the command `{bot.command_prefix(bot, ctx)[2]}list`")
-                embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                embed.set_author(name=ctx.message.author,
+                                 icon_url=ctx.message.author.avatar_url)
                 embed.set_footer(text=ctx.guild,
                                  icon_url=ctx.guild.icon_url)
                 await ctx.send(embed=embed)

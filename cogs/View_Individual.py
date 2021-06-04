@@ -46,14 +46,16 @@ class ViewIndividual(commands.Cog):
             if fit in ColdWeather.keys():
                 embed = discord.Embed(title=f"Outfit {fit}", description="")
                 embed.set_image(url=ColdWeather.get(fit))
-                embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                embed.set_author(name=ctx.message.author,
+                                 icon_url=ctx.message.author.avatar_url)
                 embed.set_footer(text=ctx.guild,
                                  icon_url=ctx.guild.icon_url)
                 await ctx.send(embed=embed)
             if fit in HotWeather.keys():
                 embed = discord.Embed(title=f"Outfit {fit}", description="")
                 embed.set_image(url=HotWeather.get(fit))
-                embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                embed.set_author(name=ctx.message.author,
+                                 icon_url=ctx.message.author.avatar_url)
                 embed.set_footer(text=ctx.guild,
                                  icon_url=ctx.guild.icon_url)
                 await ctx.send(embed=embed)
@@ -79,42 +81,47 @@ class ViewIndividual(commands.Cog):
         except:
             pass
         if weather == None:
-            a = random.randint(0,1)
+            a = random.randint(0, 1)
             if a == 1:
                 fit = random.choice(list(HotWeather.keys()))
                 embed = discord.Embed(title=f"Your Random Outfit! \n{fit}")
                 embed.set_image(url=HotWeather.get(fit))
-                embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                embed.set_author(name=ctx.message.author,
+                                 icon_url=ctx.message.author.avatar_url)
                 embed.set_footer(text=ctx.guild,
-                                icon_url=ctx.guild.icon_url)
+                                 icon_url=ctx.guild.icon_url)
                 await ctx.send(embed=embed)
             if a == 0:
                 fit = random.choice(list(ColdWeather.keys()))
                 embed = discord.Embed(title=f"Your Random Outfit! \n{fit}")
                 embed.set_image(url=ColdWeather.get(fit))
-                embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                embed.set_author(name=ctx.message.author,
+                                 icon_url=ctx.message.author.avatar_url)
                 embed.set_footer(text=ctx.guild,
-                                icon_url=ctx.guild.icon_url)
+                                 icon_url=ctx.guild.icon_url)
                 await ctx.send(embed=embed)
-        
+
         if weather[0].lower() == "hot":
             fit = random.choice(list(HotWeather.keys()))
             embed = discord.Embed(title=f"Your Random Outfit! \n{fit}")
             embed.set_image(url=HotWeather.get(fit))
-            embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+            embed.set_author(name=ctx.message.author,
+                             icon_url=ctx.message.author.avatar_url)
             embed.set_footer(text=ctx.guild,
-                            icon_url=ctx.guild.icon_url)
+                             icon_url=ctx.guild.icon_url)
             await ctx.send(embed=embed)
         if weather[0].lower() == "cold":
             fit = random.choice(list(ColdWeather.keys()))
             embed = discord.Embed(title=f"Your Random Outfit! \n{fit}")
             embed.set_image(url=ColdWeather.get(fit))
-            embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+            embed.set_author(name=ctx.message.author,
+                             icon_url=ctx.message.author.avatar_url)
             embed.set_footer(text=ctx.guild,
-                            icon_url=ctx.guild.icon_url)
+                             icon_url=ctx.guild.icon_url)
             await ctx.send(embed=embed)
         elif weather[0].lower != "hot" or "cold":
             await ctx.send("Please only use hot or cold as arguments!")
+
 
 def setup(bot):
     bot.add_cog(ViewIndividual(bot))
