@@ -84,10 +84,11 @@ class Removing(commands.Cog):
 
                 if yn.lower() == "no":
                     await ctx.send("Operation Cancelled")
+            """
             else:
                 await ctx.send(
                     f"That is not a listed Outfit! View your Outfits with `{bot.command_prefix(bot, ctx)[2]}list`")
-
+"""
 
 def setup(bot):
     bot.add_cog(Removing(bot))
