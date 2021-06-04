@@ -17,13 +17,20 @@ class Removing(commands.Cog):
 
     @bot.command(name="remove", description="Command to remove outfits", aliases=["del", "rem", "delete"])
     async def Removing(self, ctx, *fit):
-        outfits = {}
-        temp = []
+        ColdWeather = {}
+        HotWeather = {}
+        try:
+            with open("ColdWeather.json", "r") as myfile:
+                ColdWeather = json.load(myfile)
+        except:
+            pass
+        try:
+            with open("HotWeather.json", "r") as myfile:
+                HotWeather = json.load(myfile)
+        except:
+            pass
 
-        with open("Outfits.json", "r") as myfile:
-            outfits = json.load(myfile)
-
-        fit = "".join(fit)
+        fit = " ".join(fit)
 
         fit = fit.replace("(", "")
         fit = fit.replace(")", "")
@@ -32,20 +39,43 @@ class Removing(commands.Cog):
         if fit == "":
             await ctx.send(f"Please Choose an Outfit first! View them with `{bot.command_prefix(bot, ctx)[2]}list`")
         else:
-            if fit in outfits:
+            if fit in ColdWeather:
                 embed = discord.Embed(title=f"Do you wish to delete Outfit: {fit}?", description="")
-                embed.set_image(url=outfits.get(fit))
+                embed.set_image(url=ColdWeather.get(fit))
                 embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
                 embed.set_footer(text=ctx.guild,
                                  icon_url=ctx.guild.icon_url)
                 await ctx.send(embed=embed)
                 yn = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author)
                 yn = yn.content
-                del outfits[fit]
+                del ColdWeather[fit]
                 if yn.lower() == "yes":
-                    with open("Outfits.json", "w") as myfile:
+                    with open("ColdWeather.json", "w") as myfile:
                         myfile.truncate(0)
-                        json.dump(outfits, myfile)
+                        json.dump(ColdWeather, myfile)
+                    embed = discord.Embed(title=f"Outfit: {fit} has been removed", description="")
+                    embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                    embed.set_footer(text=ctx.guild,
+                                     icon_url=ctx.guild.icon_url)
+                    await ctx.send(embed=embed)
+
+                if yn.lower() == "no":
+                    await ctx.send("Operation Cancelled")
+                    
+            if fit in HotWeather:
+                embed = discord.Embed(title=f"Do you wish to delete Outfit: {fit}?", description="")
+                embed.set_image(url=HotWeather.get(fit))
+                embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(text=ctx.guild,
+                                 icon_url=ctx.guild.icon_url)
+                await ctx.send(embed=embed)
+                yn = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author)
+                yn = yn.content
+                del HotWeather[fit]
+                if yn.lower() == "yes":
+                    with open("HotWeather.json", "w") as myfile:
+                        myfile.truncate(0)
+                        json.dump(HotWeather, myfile)
                     embed = discord.Embed(title=f"Outfit: {fit} has been removed", description="")
                     embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
                     embed.set_footer(text=ctx.guild,

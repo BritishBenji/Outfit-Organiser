@@ -17,13 +17,23 @@ class Viewing(commands.Cog):
 
     @bot.command(name="list", description="Command to view a list of outfits")
     async def Viewing(self, ctx):
-        outfits = {}
+        ColdWeather = {}
+        HotWeather = {}
+        FullList = {}
         temp = []
 
-        with open("Outfits.json", "r") as myfile:
-            outfits = json.load(myfile)
-
-        names = list(outfits.keys())
+        try:
+            with open("ColdWeather.json", "r") as myfile:
+                ColdWeather = json.load(myfile)
+        except:
+            pass
+        try:
+            with open("HotWeather.json", "r") as myfile:
+                HotWeather = json.load(myfile)
+        except:
+            pass
+        FullList = dict(ColdWeather, **HotWeather)
+        names = list(FullList.keys())
         name = "\n".join(names)
         embed = discord.Embed(title="Here are your outfits!", description=name)
         embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)

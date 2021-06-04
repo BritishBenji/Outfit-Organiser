@@ -17,7 +17,7 @@ class Hot(commands.Cog):
     bot = commands.Bot(command_prefix=get_prefix, description="I'm here to tell you what outfit to wear, ngl",
                        case_insensitive=True, help_command=None)
 
-    @bot.command(name="cold", description="Command to input outfits for cold weather")
+    @bot.command(name="hot", description="Command to input outfits for cold weather")
     async def Importing(self, ctx):
         outfits = {}
         try:
