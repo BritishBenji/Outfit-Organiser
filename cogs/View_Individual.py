@@ -1,8 +1,11 @@
+import json
+import random
+
 import discord
 from discord.ext import commands
-import json
-from main import get_prefix, bot
-import random
+from main import bot, get_prefix
+
+from cogs.Cold import Cold
 
 
 class ViewIndividual(commands.Cog):
@@ -18,11 +21,17 @@ class ViewIndividual(commands.Cog):
 
     @bot.command(name="view", description="View your Outfit!")
     async def Individual(self, ctx, *fit):
-        outfits = {}
+        ColdWeather = {}
+        HotWeather = {}
 
-        with open("Outfits.json", "r") as myfile:
-            outfits = json.load(myfile)
+        with open("ColdWeather.json", "r") as myfile:
+            ColdWeather = json.load(myfile)
 
+        with open("HotWeather.json", "r") as myfile:
+            HotWeather = json.load(myfile)
+
+
+        # I know I fucked something up for it to be like this, but it works for now I guess
         fit = "".join(fit)
 
         fit = fit.replace("(", "")
@@ -32,9 +41,16 @@ class ViewIndividual(commands.Cog):
         if fit == "":
             await ctx.send(f"Please Choose an Outfit first! View them with `{bot.command_prefix(bot, ctx)[2]}list`")
         else:
-            if fit in outfits:
+            if fit in ColdWeather:
                 embed = discord.Embed(title=f"Outfit {fit}", description="")
-                embed.set_image(url=outfits.get(fit))
+                embed.set_image(url=ColdWeather.get(fit))
+                embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(text=ctx.guild,
+                                 icon_url=ctx.guild.icon_url)
+                await ctx.send(embed=embed)
+            if fit in HotWeather:
+                embed = discord.Embed(title=f"Outfit {fit}", description="")
+                embed.set_image(url=HotWeather.get(fit))
                 embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
                 embed.set_footer(text=ctx.guild,
                                  icon_url=ctx.guild.icon_url)
@@ -44,20 +60,53 @@ class ViewIndividual(commands.Cog):
                     f"That is not a listed Outfit! View your Outfits with `{bot.command_prefix(bot, ctx)[2]}list`")
 
     @bot.command(name="random", description="View a random Outfit!", aliases=["r"])
-    async def Random(self, ctx):
-        outfits = {}
+    async def Random(self, ctx, weather):
+        ColdWeather = {}
+        HotWeather = {}
 
-        with open("Outfits.json", "r") as myfile:
-            outfits = json.load(myfile)
+        with open("ColdWeather.json", "r") as myfile:
+            ColdWeather = json.load(myfile)
 
-        fit = random.choice(list(outfits.keys()))
-        embed = discord.Embed(title=f"Your Random Outfit! \n{fit}")
-        embed.set_image(url=outfits.get(fit))
-        embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
-        embed.set_footer(text=ctx.guild,
-                         icon_url=ctx.guild.icon_url)
-        await ctx.send(embed=embed)
+        with open("HotWeather.json", "r") as myfile:
+            HotWeather = json.load(myfile)
 
+        if weather == None:
+            a = random.randint(0,1)
+            if a == 1:
+                fit = random.choice(list(HotWeather.keys()))
+                embed = discord.Embed(title=f"Your Random Outfit! \n{fit}")
+                embed.set_image(url=HotWeather.get(fit))
+                embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(text=ctx.guild,
+                                icon_url=ctx.guild.icon_url)
+                await ctx.send(embed=embed)
+            if a == 0:
+                fit = random.choice(list(ColdWeather.keys()))
+                embed = discord.Embed(title=f"Your Random Outfit! \n{fit}")
+                embed.set_image(url=ColdWeather.get(fit))
+                embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(text=ctx.guild,
+                                icon_url=ctx.guild.icon_url)
+                await ctx.send(embed=embed)
+        
+        if weather.lower() == "hot":
+            fit = random.choice(list(HotWeather.keys()))
+            embed = discord.Embed(title=f"Your Random Outfit! \n{fit}")
+            embed.set_image(url=HotWeather.get(fit))
+            embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=ctx.guild,
+                            icon_url=ctx.guild.icon_url)
+            await ctx.send(embed=embed)
+        if weather.lower() == "cold":
+            fit = random.choice(list(ColdWeather.keys()))
+            embed = discord.Embed(title=f"Your Random Outfit! \n{fit}")
+            embed.set_image(url=ColdWeather.get(fit))
+            embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=ctx.guild,
+                            icon_url=ctx.guild.icon_url)
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send("Please only use hot or cold as arguments!")
 
 def setup(bot):
     bot.add_cog(ViewIndividual(bot))
